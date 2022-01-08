@@ -8,6 +8,7 @@ namespace WebApiPlayground
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using WebApiPlayground.Data;
+    using WebApiPlayground.Services;
 
     public class Startup
     {
@@ -28,6 +29,8 @@ namespace WebApiPlayground
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiPlayground", Version = "v1" });
             });
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IBookService, BookService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
