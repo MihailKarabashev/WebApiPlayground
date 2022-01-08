@@ -50,15 +50,8 @@
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(string id, Book bookToUpdate)
+        public async Task UpdateAsync(Book bookToUpdate)
         {
-            var book = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (book == null)
-            {
-                throw new NullReferenceException(BookDoestNotExist);
-            }
-
             _context.Books.Update(bookToUpdate);
             await _context.SaveChangesAsync();
         }

@@ -10,7 +10,7 @@
 
         Task RemoveAsync(string id);
 
-        Task UpdateAsync(string id ,Book bookToUpdate);
+        Task UpdateAsync(Book bookToUpdate);
 
         IEnumerable<Book> GetAll();
 

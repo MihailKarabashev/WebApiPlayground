@@ -73,11 +73,19 @@
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateBook(string id, BookUpdateDto bookUpdateDto)
         {
-            var book = _mapper.Map<Book>(bookUpdateDto);
+            var book = _bookService.GetById(id);
 
-            await _bookService.UpdateAsync(id, book);
+            if (book == null)
+            {
+                return this.NotFound();
+            }
+
+            _mapper.Map(bookUpdateDto, book);
+
+            await _bookService.UpdateAsync(book);
 
             return this.NoContent();
         }
