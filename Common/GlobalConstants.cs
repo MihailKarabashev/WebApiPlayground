@@ -4,9 +4,13 @@
     {
         public static class Book
         {
-            public const int NameMaxLenght = 20;
+            public const int NameMaxLength = 20;
 
-            public const int BodyMaxLenght = 150;
+            public const int NameMinLength = 2;
+
+            public const int BodyMaxLength = 150;
+
+            public const int BodyMinLength = 150;
 
         }
 
