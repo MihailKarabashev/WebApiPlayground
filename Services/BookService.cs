@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
     using WebApiPlayground.Data;
     using WebApiPlayground.Models;
-    using static Common.ExceptionMessage.Book;
+    using static Common.ErrorMessages.Book;
 
     public class BookService : IBookService
     {
@@ -20,7 +20,7 @@
         public async Task CreateAsync(Book book)
         {
             if(_context.Books.Any(x => x.Name == book.Name)){
-                throw new ArgumentException(bookAlreadyExist);
+                throw new ArgumentException(BookAlreadyExist);
             }
 
             if (book == null)

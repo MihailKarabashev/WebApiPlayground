@@ -26,7 +26,7 @@ namespace WebApiPlayground.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<BookReadDto>> Create(BookCreateDto bookDto)
+        public async Task<ActionResult<BookReadDto>> Create([FromBody]BookCreateDto bookDto)
         {
             var book = _mapper.Map<Book>(bookDto);
             await _bookService.CreateAsync(book);
@@ -41,7 +41,16 @@ namespace WebApiPlayground.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<BookReadDto> GetBookById(string id)
         {
-            return this.Ok();
+            var book = _bookService.GetById(id);
+
+            if(book == null)
+            {
+                return this.NotFound();
+            }
+
+            var bookReadDto = _mapper.Map<BookReadDto>(book);
+
+            return this.Ok(bookReadDto);
         }
     }
 }

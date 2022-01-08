@@ -18,5 +18,8 @@
         [Required(ErrorMessage = BodyIsRequired)]
         [StringLength(BodyMaxLength, MinimumLength =BodyMinLength)]
         public string Body { get; set; }
+
+        //delete after test
+        public int GenreId { get; set; }
     }
 }

@@ -59,3 +59,9 @@ C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\obj\Debug\net5.0\W
 C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\obj\Debug\net5.0\ref\WebApiPlayground.dll
 C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\obj\Debug\net5.0\WebApiPlayground.pdb
 C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\obj\Debug\net5.0\WebApiPlayground.genruntimeconfig.cache
+C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\alfit\source\repos\WebApiPlayground\WebApiPlayground\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll

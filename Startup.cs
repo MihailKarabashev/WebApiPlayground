@@ -28,7 +28,10 @@ namespace WebApiPlayground
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApiPlayground", Version = "v1" });
             });
-            services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(opt => 
+            opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<IBookService, BookService>();
         }

@@ -9,7 +9,7 @@
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLenght)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
@@ -18,7 +18,7 @@
         public decimal Price { get; set; }
 
         [Required]
-        [MaxLength(BodyMaxLenght)]
+        [MaxLength(BodyMaxLength)]
         public string Body { get; set; }
 
         public int GenreId { get; set; }

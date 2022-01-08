@@ -10,7 +10,7 @@
 
             public const int BodyMaxLength = 150;
 
-            public const int BodyMinLength = 150;
+            public const int BodyMinLength = 7;
 
         }
 
