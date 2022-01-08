@@ -1,5 +1,6 @@
 ﻿namespace WebApiPlayground.Services
 {
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -36,14 +37,30 @@
 
         public Book GetById(string id) => _context.Books.FirstOrDefault(x => x.Id == id);
 
-        public Task RemoveAsync(string id)
+        public async Task RemoveAsync(string id)
         {
-            throw new System.NotImplementedException();
+            var book = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (book == null)
+            {
+                throw new NullReferenceException(BookDoestNotExist);
+            }
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(string id, Book book)
+        public async Task UpdateAsync(string id, Book bookToUpdate)
         {
-            throw new System.NotImplementedException();
+            var book = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (book == null)
+            {
+                throw new NullReferenceException(BookDoestNotExist);
+            }
+
+            _context.Books.Update(bookToUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }

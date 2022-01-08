@@ -11,6 +11,9 @@
             public const string BodyIsRequired = "Book body is required";
 
             public const string PriceIsRequired = "Book price is required";
+
+            public const string BookDoestNotExist = "Book doesn't exist.";
+
         }
     }
 }

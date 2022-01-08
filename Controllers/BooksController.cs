@@ -62,5 +62,24 @@
             var allBookDtos = _mapper.Map<IEnumerable<BookReadDto>>(allBooks);
             return this.Ok(allBookDtos);
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult> DeleteBook(string id)
+        {
+            await _bookService.RemoveAsync(id);
+            return this.NoContent();
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult> UpdateBook(string id, BookUpdateDto bookUpdateDto)
+        {
+            var book = _mapper.Map<Book>(bookUpdateDto);
+
+            await _bookService.UpdateAsync(id, book);
+
+            return this.NoContent();
+        }
     }
 }
