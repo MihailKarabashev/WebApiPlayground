@@ -1,13 +1,14 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using WebApiPlayground.Dtos.Books;
-using WebApiPlayground.Models;
-using WebApiPlayground.Services;
-
-namespace WebApiPlayground.Controllers
+﻿namespace WebApiPlayground.Controllers
 {
+    using AutoMapper;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using WebApiPlayground.Dtos.Books;
+    using WebApiPlayground.Models;
+    using WebApiPlayground.Services;
+
     [Route("api/books")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -26,7 +27,7 @@ namespace WebApiPlayground.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<BookReadDto>> Create([FromBody]BookCreateDto bookDto)
+        public async Task<ActionResult<BookReadDto>> Create([FromBody] BookCreateDto bookDto)
         {
             var book = _mapper.Map<Book>(bookDto);
             await _bookService.CreateAsync(book);
@@ -36,7 +37,7 @@ namespace WebApiPlayground.Controllers
             return this.CreatedAtAction(nameof(GetBookById), new { id = bookReadDto.Id }, bookReadDto);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<BookReadDto> GetBookById(string id)
@@ -51,6 +52,15 @@ namespace WebApiPlayground.Controllers
             var bookReadDto = _mapper.Map<BookReadDto>(book);
 
             return this.Ok(bookReadDto);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<BookReadDto>> GetAllBooks()
+        {
+            var allBooks = _bookService.GetAll();
+            var allBookDtos = _mapper.Map<IEnumerable<BookReadDto>>(allBooks);
+            return this.Ok(allBookDtos);
         }
     }
 }
