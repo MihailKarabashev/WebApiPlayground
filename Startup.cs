@@ -8,6 +8,7 @@ namespace WebApiPlayground
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using WebApiPlayground.Data;
+    using WebApiPlayground.Extensions;
     using WebApiPlayground.Services;
 
     public class Startup
@@ -34,6 +35,7 @@ namespace WebApiPlayground
             services.AddAutoMapper(typeof(Startup));
 
             services.AddTransient<IBookService, BookService>();
+            services.AddTransient<ExceptionHandlingMiddleware>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +47,8 @@ namespace WebApiPlayground
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiPlayground v1"));
             }
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 

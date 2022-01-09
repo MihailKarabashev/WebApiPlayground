@@ -8,6 +8,7 @@
     using WebApiPlayground.Data;
     using WebApiPlayground.Models;
     using static Common.ErrorMessages.Book;
+    using static WebApiPlayground.Common.CustomExceptions;
 
     public class BookService : IBookService
     {
@@ -33,9 +34,9 @@
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Book>> GetAll() => await _context.Books.ToListAsync();
+        public async Task<IEnumerable<Book>> GetAllAsync() => await _context.Books.ToListAsync();
 
-        public  async Task<Book> GetById(string id) => await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
+        public  async Task<Book> GetByIdAsync(string id) => await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task RemoveAsync(string id)
         {
@@ -43,7 +44,7 @@
 
             if (book == null)
             {
-                throw new NullReferenceException(BookDoestNotExist);
+                throw new NotFoundException(BookDoestNotExist);
             }
 
             _context.Books.Remove(book);
