@@ -33,9 +33,9 @@
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Book> GetAll() => _context.Books.ToList();
+        public async Task<IEnumerable<Book>> GetAll() => await _context.Books.ToListAsync();
 
-        public Book GetById(string id) => _context.Books.FirstOrDefault(x => x.Id == id);
+        public  async Task<Book> GetById(string id) => await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task RemoveAsync(string id)
         {

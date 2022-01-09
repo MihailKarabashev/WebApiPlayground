@@ -40,9 +40,9 @@
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<BookReadDto> GetBookById(string id)
+        public async Task<ActionResult<BookReadDto>> GetBookById(string id)
         {
-            var book = _bookService.GetById(id);
+            var book = await _bookService.GetByIdAsync(id);
 
             if(book == null)
             {
@@ -56,9 +56,9 @@
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<BookReadDto>> GetAllBooks()
+        public async Task<ActionResult<IEnumerable<BookReadDto>>> GetAllBooks()
         {
-            var allBooks = _bookService.GetAll();
+            var allBooks = await _bookService.GetAllAsync();
             var allBookDtos = _mapper.Map<IEnumerable<BookReadDto>>(allBooks);
             return this.Ok(allBookDtos);
         }
@@ -76,7 +76,7 @@
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateBook(string id, BookUpdateDto bookUpdateDto)
         {
-            var book = _bookService.GetById(id);
+            var book = await _bookService.GetByIdAsync(id);
 
             if (book == null)
             {

@@ -12,8 +12,8 @@
 
         Task UpdateAsync(Book bookToUpdate);
 
-        IEnumerable<Book> GetAll();
+        Task<IEnumerable<Book>> GetAllAsync();
 
-        Book GetById(string id);
+        Task<Book> GetByIdAsync(string id);
     }
 }
