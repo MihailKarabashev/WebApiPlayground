@@ -3,6 +3,7 @@
     using AutoMapper;
     using WebApiPlayground.Dtos.Books;
     using WebApiPlayground.Models;
+    using WebApiPlayground.Services;
 
     public class BooksProfile : Profile
     {

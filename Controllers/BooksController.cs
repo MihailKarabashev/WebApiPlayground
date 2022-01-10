@@ -9,6 +9,7 @@
     using WebApiPlayground.Dtos.Books;
     using WebApiPlayground.Models;
     using WebApiPlayground.Services;
+    using static Common.ErrorMessages.Book;
 
     [Route("api/books")]
     [ApiController]
@@ -45,11 +46,6 @@
         public async Task<ActionResult<BookReadDto>> GetBookById(string id)
         {
             var book = await _bookService.GetByIdAsync(id);
-
-            if (book == null)
-            {
-                return this.NotFound();
-            }
 
             var bookReadDto = _mapper.Map<BookReadDto>(book);
 
@@ -94,7 +90,7 @@
 
 
         [HttpGet]
-        [Route("by")]
+        [Route("filterBy")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult GetBooks([FromQuery]BookParameters parameters)
         {

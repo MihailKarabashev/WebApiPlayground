@@ -12,6 +12,10 @@
 
             public const int BodyMinLength = 7;
 
+            public const int BookMinPrice = 0;
+
+            public const int BookMaxPrice = 3000;
+
         }
 
         public static class Genre

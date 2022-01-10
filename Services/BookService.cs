@@ -37,12 +37,21 @@
         public async Task<IEnumerable<Book>> GetAllAsync() => await _context.Books.ToListAsync();
 
         public PagedList<Book> GetAllPaginatedBooks(BookParameters parameters)
-            => PagedList<Book>.ToPagedList( _context.Books.OrderBy(x => x.Name), parameters.PageNumber, parameters.PageSize);
+        {
+            if (!parameters.IsPriceValid)
+            {
+                throw new BadRequestException(BookPriceValidationException);
+            }
 
-        public  async Task<Book> GetByIdAsync(string id) 
-            => await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
+            var books = _context.Books
+                .Where(x => x.Price >= parameters.MinPrice && x.Price <= parameters.MaxPrice)
+                .OrderBy(x => x.Name)
+                .AsQueryable();
 
-        public async Task RemoveAsync(string id)
+            return PagedList<Book>.ToPagedList(books, parameters.PageNumber, parameters.PageSize);
+        }
+
+        public async Task<Book> GetByIdAsync(string id)
         {
             var book = await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -50,6 +59,13 @@
             {
                 throw new NotFoundException(BookDoestNotExist);
             }
+
+            return book;
+        }
+
+        public async Task RemoveAsync(string id)
+        {
+            var book =  await this.GetByIdAsync(id);
 
             _context.Books.Remove(book);
             await _context.SaveChangesAsync();
@@ -60,5 +76,24 @@
             _context.Books.Update(bookToUpdate);
             await _context.SaveChangesAsync();
         }
+
+
+        //private void ValidatePrice(BookParameters parameters)
+        //{
+        //    if (!parameters.IsPriceValid && parameters.MinPrice.HasValue)
+        //    {
+        //        throw new BadRequestException(BookPriceValidationException);
+        //    }
+
+        //    if (parameters.MinPrice.HasValue && parameters.MinPrice.Value <= 0)
+        //    {
+        //        throw new BadRequestException("Min Price Error here");
+        //    }
+
+        //    if (parameters.MaxPrice <= 0)
+        //    {
+        //        throw new BadRequestException("Max Price Error here");
+        //    }
+        //}
     }
 }

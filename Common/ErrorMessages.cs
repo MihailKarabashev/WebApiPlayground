@@ -14,6 +14,12 @@
 
             public const string BookDoestNotExist = "Book doesn't exist.";
 
+            public const string BookMinPriceValidation = "Minimum price cannot be less than zero";
+
+            public const string BookMaxPriceValidation = "Maximum price cannot be less zero";
+
+            public const string BookPriceValidationException = "Max price of book cannot be less than min price of book";
+
         }
     }
 }
