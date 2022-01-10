@@ -14,5 +14,7 @@
         public decimal MaxPrice { get; set; } = BookMaxPrice;
 
         public bool IsPriceValid => MaxPrice > MinPrice;
+
+        public string Name { get; set; }
     }
 }

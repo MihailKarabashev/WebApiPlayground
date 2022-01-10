@@ -100,8 +100,6 @@
             return this.Ok(books);
         }
 
-
-
         private void SetBooksMetadata(PagedList<Book> books)
         {
             var metadata = new

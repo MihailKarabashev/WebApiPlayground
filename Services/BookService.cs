@@ -48,6 +48,8 @@
                 .OrderBy(x => x.Name)
                 .AsQueryable();
 
+            this.SearchByName(ref books, parameters.Name);
+
             return PagedList<Book>.ToPagedList(books, parameters.PageNumber, parameters.PageSize);
         }
 
@@ -77,23 +79,11 @@
             await _context.SaveChangesAsync();
         }
 
+       private void SearchByName(ref IQueryable<Book> books, string bookName)
+        {
+            if (!books.Any() || string.IsNullOrWhiteSpace(bookName)) return;
 
-        //private void ValidatePrice(BookParameters parameters)
-        //{
-        //    if (!parameters.IsPriceValid && parameters.MinPrice.HasValue)
-        //    {
-        //        throw new BadRequestException(BookPriceValidationException);
-        //    }
-
-        //    if (parameters.MinPrice.HasValue && parameters.MinPrice.Value <= 0)
-        //    {
-        //        throw new BadRequestException("Min Price Error here");
-        //    }
-
-        //    if (parameters.MaxPrice <= 0)
-        //    {
-        //        throw new BadRequestException("Max Price Error here");
-        //    }
-        //}
+            books = books.Where(x => x.Name.ToLower().Contains(bookName.Trim().ToLower()));
+        }
     }
 }
