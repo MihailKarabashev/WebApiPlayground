@@ -36,7 +36,11 @@
 
         public async Task<IEnumerable<Book>> GetAllAsync() => await _context.Books.ToListAsync();
 
-        public  async Task<Book> GetByIdAsync(string id) => await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
+        public PagedList<Book> GetAllPaginatedBooks(BookParameters parameters)
+            => PagedList<Book>.ToPagedList( _context.Books.OrderBy(x => x.Name), parameters.PageNumber, parameters.PageSize);
+
+        public  async Task<Book> GetByIdAsync(string id) 
+            => await _context.Books.FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task RemoveAsync(string id)
         {

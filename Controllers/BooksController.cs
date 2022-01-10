@@ -3,6 +3,7 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using WebApiPlayground.Dtos.Books;
@@ -45,7 +46,7 @@
         {
             var book = await _bookService.GetByIdAsync(id);
 
-            if(book == null)
+            if (book == null)
             {
                 return this.NotFound();
             }
@@ -89,6 +90,35 @@
             await _bookService.UpdateAsync(book);
 
             return this.NoContent();
+        }
+
+
+        [HttpGet]
+        [Route("by")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult GetBooks([FromQuery]BookParameters parameters)
+        {
+            var books = _bookService.GetAllPaginatedBooks(parameters);
+            this.SetBooksMetadata(books);
+
+            return this.Ok(books);
+        }
+
+
+
+        private void SetBooksMetadata(PagedList<Book> books)
+        {
+            var metadata = new
+            {
+                books.TotalCount,
+                books.PageSize,
+                books.CurrentPage,
+                books.TotalPages,
+                books.HasNext,
+                books.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
         }
     }
 }

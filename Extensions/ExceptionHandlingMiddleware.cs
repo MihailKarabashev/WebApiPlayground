@@ -16,7 +16,6 @@
         }
     }
 
-
     public class ExceptionHandlingMiddleware : IMiddleware
     {
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)

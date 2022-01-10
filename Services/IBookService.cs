@@ -15,5 +15,7 @@
         Task<IEnumerable<Book>> GetAllAsync();
 
         Task<Book> GetByIdAsync(string id);
+
+        PagedList<Book> GetAllPaginatedBooks(BookParameters parameters);
     }
 }
